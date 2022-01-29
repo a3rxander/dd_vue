@@ -1,9 +1,9 @@
 import { createStore } from 'vuex'
-import docente_storeModule from '../modules/docente/store/docente_store'
+import docente_storevuex from '../modules/docente/store/docente_store'
 
 const store= createStore ( {
     modules: {
-        docente_storeModule
+        docente_storevuex
     }
 
 } )

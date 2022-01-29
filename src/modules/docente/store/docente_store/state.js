@@ -4,5 +4,6 @@
 export default  () => ({
 
     isLoading:true,
-    cursos:[],
+    list_cursos:[],
+    curso:[],
 })

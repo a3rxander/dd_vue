@@ -14,9 +14,19 @@ export default{
         component: () => import(/* webpackChunkName: "docente_cursos_index"*/'@/modules/docente/views/CursoIndex.vue' )
     },
     {
+        path:'cursos/create',
+        name:'docente_cursos_create',
+        component: () => import(/* webpackChunkName: "docente_cursos_create"*/'@/modules/docente/views/CursoCreate.vue' )
+    },
+    {
         path:'cursos/:id',
         name:'docente_cursos_show',
-        component: () => import(/* webpackChunkName: "docente_cursos_show"*/'@/modules/docente/views/CursoShow.vue' )
+        component: () => import(/* webpackChunkName: "docente_cursos_show"*/'@/modules/docente/views/CursoShow.vue' ),
+        props:( route ) => {
+            return {
+                id:route.params.id
+            }
+        }
     },
 
 ]
