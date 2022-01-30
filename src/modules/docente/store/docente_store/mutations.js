@@ -24,3 +24,9 @@ export const storeCurso = (state, entry ) => {
     // state -> entries  -> la nueva entrada debe de ser la primera
     state.list_cursos = [ entry, ...state.list_cursos  ]
 }
+
+export const deleteCurso = (state, id ) => {
+    // state -> entries  -> la nueva entrada debe de ser la primera
+    state.list_cursos = state.list_cursos.filter(entry => entry.id !== id);
+}
+

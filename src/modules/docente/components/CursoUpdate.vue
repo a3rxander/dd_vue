@@ -21,12 +21,17 @@
       <button   @click="saveEntry" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Actualizar
       </button>
+      <button   @click="deleteEntry" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Eliminar
+      </button>
     </div>
 </template>
 
  
 
 <script>
+
+import Swal from 'sweetalert2'
 import { mapGetters, mapState,mapActions } from 'vuex'
 
 export default {
@@ -48,8 +53,9 @@ props:{
         ...mapState( 'docente_storevuex', ['curso']),
      
     },
-    methods : {
-        ...mapActions('docente_storevuex', ['updateCurso']),
+    methods : 
+    {
+        ...mapActions('docente_storevuex', ['updateCurso','deleteCurso']),
 
         getCurso()
         {
@@ -63,8 +69,40 @@ props:{
         },
         async saveEntry()
         {
-          console.log("save Entry");
+          new Swal({
+                title: 'Espere por favor',
+                allowOutsideClick: false
+            })
+            
+            Swal.showLoading()
+
            await this.updateCurso( this.d_curso );
+           Swal.fire('Guardado', 'Entrada registrada con éxito', 'success')
+            
+
+        }
+        ,
+        async deleteEntry()
+        {
+          const { isConfirmed } = await Swal.fire({
+                title: '¿Está seguro?',
+                text: 'Una vez borrado, no se puede recuperar',
+                showDenyButton: true,
+                confirmButtonText: 'Si, estoy seguro'
+            })
+
+            if ( isConfirmed ) 
+            {
+              new Swal({
+                  title: 'Espere por favor',
+                  allowOutsideClick: false
+              })
+              Swal.showLoading()
+
+              await this.deleteCurso( this.d_curso.id );
+              this.$router.push({name:'docente_cursos_index'});
+              Swal.fire('Eliminado','','success')
+            }
         }
     },
     watch: {

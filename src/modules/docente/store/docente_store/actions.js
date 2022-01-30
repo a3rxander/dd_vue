@@ -52,8 +52,8 @@ export const updateCurso = async ({ commit }, entry) => {
 
 export const storeCurso = async ({ commit }, entry) => { 
 
-    const {v_name, v_desc } = entry
-    const dataToSave = { v_name, v_desc }
+    const {v_name, v_desc, v_picture } = entry
+    const dataToSave = { v_name, v_desc,v_picture }
 
     const { data } = await cursoAPI.post( '/cursos.json', dataToSave )
 
@@ -66,3 +66,13 @@ export const storeCurso = async ({ commit }, entry) => {
 
     return data.name
 }
+
+
+export const deleteCurso = async ({ commit }, id) => { 
+
+    await cursoAPI.delete(`/cursos/${ id }.json`)
+    commit('deleteCurso', id)
+
+    return id;
+}
+
